@@ -30,27 +30,24 @@ struct ContentView: View {
                                     
                                 case CardTypes.HC1.rawValue:
                                     HC1(Card: cardGroup)
-                                        .padding(.horizontal, 12)
                                     
                                 case CardTypes.HC3.rawValue:
                                     HC3(Card: cardGroup)
-                                        .padding(.horizontal, 12)
-                                    
+                                      
                                 case CardTypes.HC5.rawValue:
                                     HC5(Card: cardGroup)
-                                        .padding(.horizontal, 12)
-                                    
+                                        
                                 case CardTypes.HC6.rawValue:
                                     HC6(Card: cardGroup)
-                                        .padding(.horizontal, 12)
-                                    
+                                       
                                 case CardTypes.HC9.rawValue:
-                                    EmptyView()
+                                    HC9(Card: cardGroup)
                                     
                                 default:
                                     EmptyView()
                                 }
-                            }
+                            }.padding(.horizontal, 12)
+                                .padding(.vertical, 5)
                         }
                     }
                     

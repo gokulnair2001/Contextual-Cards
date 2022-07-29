@@ -26,8 +26,11 @@ struct HC1: View {
         }
         
         if !Card.isScrollable {
-            ForEach(Card.cards) { card in
-                hc1CardUI(card: card)
+            HStack {
+                ForEach(Card.cards) { card in
+                    hc1CardUI(card: card)
+                        .padding(.leading, 7)
+                }
             }
         }
     }

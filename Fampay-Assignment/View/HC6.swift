@@ -25,8 +25,11 @@ struct HC6: View {
         }
         
         if !Card.isScrollable {
-            ForEach(Card.cards) { card in
-               hc6CardUI(card: card)
+            HStack {
+                ForEach(Card.cards) { card in
+                   hc6CardUI(card: card)
+                        .padding(.leading, 7)
+                }
             }
         }
     }
@@ -49,13 +52,6 @@ extension HC6 {
             openURL(URL(string: card.url)!)
             
         }.frame(height: 100)
-            .background(.white)
+            .background(Color(hexStringToUIColor(hex: card.bgColor ?? "#ffffff")))
     }
 }
-
-//extension HC6 {
-//    @ViewBuilder
-//    func CustomTextBuilder(originalText: String, replaceBy:String, color: Color) -> some View {
-//
-//    }
-//}

@@ -1,5 +1,5 @@
 //
-//  HC5.swift
+//  HC9.swift
 //  Fampay-Assignment
 //
 //  Created by Gokul Nair on 29/07/22.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct HC5: View {
-  
+struct HC9: View {
+    
     @State var Card: CardGroup
     
     @Environment(\.openURL) var openURL
@@ -18,36 +18,34 @@ struct HC5: View {
             ScrollView(.horizontal) {
                 HStack {
                     ForEach(Card.cards) { card in
-                        hc5CardUI(card: card)
-                            .frame(width: UIScreen.main.bounds.width)
-                            .cornerRadius(10)
+                        hc9CardUI(card: card)
                     }
                 }
             }
         }
         
         if !Card.isScrollable {
-            HStack {
-                ForEach(Card.cards) { card in
-                    hc5CardUI(card: card)
-                        .padding(.leading, 5)
-                }
+            ForEach(Card.cards) { card in
+                hc9CardUI(card: card)
             }
         }
     }
 }
 
-extension HC5 {
+extension HC9 {
     @ViewBuilder
-    func hc5CardUI(card: Card) -> some View {
-        HStack {
-            AsyncImage(url: URL(string: card.bgImage?.imageURL ?? "")) { image in
+    func hc9CardUI(card: Card) -> some View {
+        ZStack {
+            AsyncImage(url: URL(string: card.bgImage?.imageURL ?? "")!) { image in
                 image.resizable()
-                // image.aspectRatio(Card.bgImage?.aspectRatio ?? 1, contentMode: .fill)
             } placeholder: {
                 Color(hexStringToUIColor(hex: card.bgColor ?? "#000000"))
-            }
-        }.frame(height: 150, alignment: .center)
+            }.aspectRatio(card.bgImage?.aspectRatio ?? 1, contentMode: .fit)
+                .cornerRadius(5)
+                .padding(3)
+            
+        }.frame(height: 195)
+            .cornerRadius(5)
             .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 0)
             .onTapGesture {
                 openURL(URL(string: card.url)!)
@@ -55,8 +53,8 @@ extension HC5 {
     }
 }
 
-//struct HC5_Previews: PreviewProvider {
+//struct HC9_Previews: PreviewProvider {
 //    static var previews: some View {
-//        HC5()
+//        HC9()
 //    }
 //}
