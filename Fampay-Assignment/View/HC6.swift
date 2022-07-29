@@ -9,27 +9,45 @@ import SwiftUI
 
 struct HC6: View {
     
-    @State var CardVM: Card
+    @State var Card: CardGroup
     
     @Environment(\.openURL) var openURL
     
     var body: some View {
-        HStack {
-           // ForEach(CardVM) { card in
+        if Card.isScrollable {
+            ScrollView(.horizontal) {
                 HStack {
-                    AsyncImage(url: URL(string: CardVM.icon?.imageURL ?? "")) { image in
-                        image.resizable()
-                    } placeholder: {
-                        Color.yellow
+                    ForEach(Card.cards) { card in
+                       hc6CardUI(card: card)
                     }
-                    .frame(width: 20, height: 20)
-                    
-                    Text(CardVM.formattedTitle?.text ?? "")
-                    
-                }.onTapGesture {
-                    openURL(URL(string: CardVM.url)!)
                 }
-           // }
+            }
+        }
+        
+        if !Card.isScrollable {
+            ForEach(Card.cards) { card in
+               hc6CardUI(card: card)
+            }
+        }
+    }
+}
+
+extension HC6 {
+    @ViewBuilder
+    func hc6CardUI(card: Card) -> some View {
+        HStack {
+            AsyncImage(url: URL(string: card.icon?.imageURL ?? "")) { image in
+                image.resizable()
+            } placeholder: {
+                Color.yellow
+            }
+            .frame(width: 20, height: 20)
+            
+            Text(card.formattedTitle?.text ?? "")
+            
+        }.onTapGesture {
+            openURL(URL(string: card.url)!)
+            
         }.frame(height: 100)
             .background(.white)
     }
@@ -39,11 +57,5 @@ struct HC6: View {
 //    @ViewBuilder
 //    func CustomTextBuilder(originalText: String, replaceBy:String, color: Color) -> some View {
 //
-//    }
-//}
-
-//struct HC6_Previews: PreviewProvider {
-//    static var previews: some View {
-//       HC6()
 //    }
 //}

@@ -25,31 +25,31 @@ struct ContentView: View {
                     ScrollView {
                         if !CardVM.cards.isEmpty {
                             ForEach(CardVM.cards[0].cardGroups) { cardGroup in
-                                ForEach(cardGroup.cards) { card in
-                                    
-                                    switch cardGroup.designType {
-                                        
-                                    case CardTypes.HC1.rawValue:
-                                        EmptyView()
-                                        
-                                    case CardTypes.HC3.rawValue:
-                                        EmptyView()
-                                        
-                                    case CardTypes.HC5.rawValue:
-                                        EmptyView()
-                                        
-                                    case CardTypes.HC6.rawValue:
-                                        HC6(CardVM: card)
-                                        
-                                    case CardTypes.HC9.rawValue:
-                                        EmptyView()
-                                        
-                                    default:
-                                        EmptyView()
-                                    }
-                                    
-                                }
                                 
+                                switch cardGroup.designType {
+                                    
+                                case CardTypes.HC1.rawValue:
+                                    HC1(Card: cardGroup)
+                                        .padding(.horizontal, 12)
+                                    
+                                case CardTypes.HC3.rawValue:
+                                    HC3(Card: cardGroup)
+                                        .padding(.horizontal, 12)
+                                    
+                                case CardTypes.HC5.rawValue:
+                                    HC5(Card: cardGroup)
+                                        .padding(.horizontal, 12)
+                                    
+                                case CardTypes.HC6.rawValue:
+                                    HC6(Card: cardGroup)
+                                        .padding(.horizontal, 12)
+                                    
+                                case CardTypes.HC9.rawValue:
+                                    EmptyView()
+                                    
+                                default:
+                                    EmptyView()
+                                }
                             }
                         }
                     }
