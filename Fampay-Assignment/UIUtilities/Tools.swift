@@ -60,6 +60,48 @@ extension View {
     }
 }
 
+// MARK: - String Extension
+extension View {
+    
+    func formatText(input: String, replaceBy: [Entity]) -> [Entity] {
+        
+        let stringArray = input.components(separatedBy: " ")
+        var count = 0
+        var entityModel:[Entity] = [Entity]()
+        
+        for i in 0..<stringArray.count {
+            if stringArray[i] == "{}" || stringArray[i] == "{}!" {
+                entityModel.append(Entity.init(text: replaceBy[count].text, color: replaceBy[count].color))
+                count += 1
+            }else {
+                entityModel.append(Entity.init(text: stringArray[i], color: "#000000"))
+            }
+        }
+        
+        return entityModel
+    }
+    
+    @ViewBuilder
+    func textGenerator(entity: [Entity]) -> some View {
+        let layout = [GridItem(.flexible())]
+        
+        VStack {
+            LazyHGrid(rows: layout, alignment: .firstTextBaseline, spacing: 5) {
+                ForEach(entity) { ent in
+                    VStack(spacing: 0) {
+                        Text(ent.text.trimmingCharacters(in: .whitespacesAndNewlines))
+                            .foregroundColor(Color(hexStringToUIColor(hex: ent.color)))
+                            .lineLimit(1)
+                            .multilineTextAlignment(.leading)
+                            .padding(.bottom, 8)
+                        
+                    }.frame(height: 50, alignment: .leading)
+                }
+            }
+        }.padding(.leading, 20)
+    }
+}
+
 
 // MARK: - Font Extensions
 extension Font {
@@ -79,6 +121,6 @@ extension Font {
     }
     
     static func roboto(weight: RobotoFont, size: CGFloat = 14) -> Font {
-            return .custom(weight.style, size: size)
-        }
+        return .custom(weight.style, size: size)
+    }
 }

@@ -66,52 +66,51 @@ extension HC3 {
             .onLongPressGesture {
                 slideCard()
             }
+            .zIndex(0)
     }
     
     
     // MARK: - Top Visible Card UI
     @ViewBuilder
     func hc3CardTopUI(card: Card) -> some View {
-        AsyncImage(url: URL(string: card.bgImage?.imageURL ?? "")) { image in
-            image.resizable()
-                .aspectRatio(card.bgImage?.aspectRatio ?? 1, contentMode: .fit)
-        } placeholder: {
-            Color(hexStringToUIColor(hex: card.bgColor ?? "#000000"))
-        }
-        
-        VStack(alignment: .leading, spacing: 28) {
+        ZStack {
+            AsyncImage(url: URL(string: card.bgImage?.imageURL ?? "")) { image in
+                image.resizable()
+                    .cornerRadius(12)
+                    .aspectRatio(CGFloat(card.bgImage?.aspectRatio ?? 1), contentMode: .fit)
+            } placeholder: {
+                Color(hexStringToUIColor(hex: card.bgColor ?? "#000000"))
+            }
             
-            Text(card.title ?? "Error")
-                .font(.roboto(weight: .medium, size: 30))
-                .padding(.leading, 20)
-                .padding(.trailing, 27)
-                .lineLimit(2)
-                .multilineTextAlignment(.leading)
-                .hLeading()
-            
-            Text(card.cardDescription ?? "Error")
-                .font(.roboto(weight: .regular, size: 12))
-                .padding(.leading, 20)
-                .padding(.trailing, 40)
-                .lineLimit(2)
-                .multilineTextAlignment(.leading)
-                .hLeading()
-            
-            HStack{
-                Button{
-                    print("Action")
-                }label: {
-                    Text("Action")
-                        .font(.roboto(weight: .medium))
-                        .foregroundColor(.white)
-                        .frame(width: 128, height: 42, alignment: .center)
-                        .background(.black)
-                        .cornerRadius(6)
-                }
-            }.padding(.leading, 20)
-        }
-        .frame(width: UIScreen.main.bounds.width-60, height: (400-125))
-        .padding(.top, 125)
+            VStack(alignment: .leading, spacing: 28) {
+                
+                textGenerator(entity: formatText(input: (card.formattedTitle?.text ?? card.title) ?? "ERROR", replaceBy: card.formattedTitle?.entities ?? [Entity].init()))
+                    .font(.roboto(weight: .medium, size: 25))
+                
+                Text(card.cardDescription ?? "Error")
+                    .font(.roboto(weight: .regular, size: 12))
+                    .padding(.leading, 20)
+                    .padding(.trailing, 40)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.leading)
+                    .hLeading()
+                
+                HStack{
+                    Button{
+                        slideCard()
+                    }label: {
+                        Text("Action")
+                            .font(.roboto(weight: .medium))
+                            .foregroundColor(.white)
+                            .frame(width: 128, height: 42, alignment: .center)
+                            .background(.black)
+                            .cornerRadius(6)
+                    }
+                }.padding(.leading, 20)
+            }
+            .frame(width: UIScreen.main.bounds.width-60, height: (400-125))
+            .padding(.top, 125)
+        }.zIndex(1)
     }
     
     

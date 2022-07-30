@@ -46,21 +46,21 @@ extension HC6 {
             .aspectRatio(card.bgImage?.aspectRatio ?? 1, contentMode: .fill)
             .frame(width: 30, height: 30)
             
-            Text(card.formattedTitle?.text ?? "")
-                .font(.roboto(weight: .medium))
+            textGenerator(entity: formatText(input: (card.formattedTitle?.text ?? card.title) ?? "ERROR", replaceBy: card.formattedTitle?.entities ?? [Entity].init()))
+                .font(.roboto(weight: .medium, size: 14))
             
             Spacer()
             
             Image(systemName: "chevron.right")
                 .resizable()
                 .frame(width: 10, height: 16)
-                .padding(.trailing, 22)
             
-        }.padding(.leading, 20)
+        }.padding(.horizontal, 20)
         .hLeading()
         .onTapGesture {
             openURL(URL(string: card.url)!)
-        }.frame(width: UIScreen.main.bounds.width - 15, height: 60)
+        }
+        .frame(width: UIScreen.main.bounds.width - 30, height: 60)
          .background(Color(hexStringToUIColor(hex: card.bgColor ?? "#ffffff")))
          .cornerRadius(15)
          .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 0)

@@ -14,8 +14,6 @@ class CardViewModel: ObservableObject {
     // Fetch method: Fetches Card details from server
     func fetchCards(with urlString: String) async throws {
         
-        print("🔑 \(urlString)")
-        
         guard let url = URL(string:  urlString) else {
             throw HttpError.badURl
         }
@@ -25,7 +23,5 @@ class CardViewModel: ObservableObject {
         DispatchQueue.main.async {
             self.cards = cardResponse
         }
-        
-        print("🎈\(cardResponse)")
     }
 }

@@ -16,5 +16,5 @@ enum Keys {
 
 // MARK: - AppStorage Identifiers
 enum UserDefaultKey {
-    static let dismissCardList = "dissmissedCards"
+    static let dismissCardList = "dismissedCards"
 }

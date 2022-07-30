@@ -11,7 +11,7 @@ struct CardModel: Codable, Identifiable {
     let id = UUID()
     
     let cardGroups: [CardGroup]
-
+    
     enum CodingKeys: String, CodingKey {
         case cardGroups = "card_groups"
     }
@@ -27,7 +27,7 @@ struct CardGroup: Codable, Identifiable {
     let cards: [Card]
     let isScrollable: Bool
     let height: Int?
-
+    
     enum CodingKeys: String, CodingKey {
         case cardId = "id"
         case name
@@ -52,7 +52,7 @@ struct Card: Codable, Identifiable  {
     let bgImage: BgImage?
     let bgColor: String?
     let cta: [Cta]?
-
+    
     enum CodingKeys: String, CodingKey {
         case name, title
         case formattedTitle = "formatted_title"
@@ -71,7 +71,7 @@ struct BgImage: Codable {
     let imageType: ImageType
     let imageURL: String
     let aspectRatio: Double?
-
+    
     enum CodingKeys: String, CodingKey {
         case imageType = "image_type"
         case imageURL = "image_url"
@@ -87,7 +87,7 @@ enum ImageType: String, Codable {
 struct Cta: Codable {
     let text, bgColor, textColor: String
     let url: String
-
+    
     enum CodingKeys: String, CodingKey {
         case text
         case bgColor = "bg_color"
@@ -103,7 +103,9 @@ struct FormattedDescription: Codable {
 }
 
 // MARK: - Entity
-struct Entity: Codable {
+struct Entity: Codable, Identifiable {
+    let id = UUID()
+    
     let text, color: String
 }
 

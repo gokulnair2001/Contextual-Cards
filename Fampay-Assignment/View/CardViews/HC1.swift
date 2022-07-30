@@ -19,7 +19,7 @@ struct HC1: View {
                 HStack(spacing: 10) {
                     ForEach(Card.cards) { card in
                         hc1CardUI(card: card)
-                            .frame(width: UIScreen.main.bounds.width - 40)
+                            .frame(width: UIScreen.main.bounds.width - 90)
                     }
                 }.padding(3)
             }
@@ -42,13 +42,15 @@ extension HC1 {
             AsyncImage(url: URL(string: card.icon?.imageURL ?? "")) { image in
                 image.resizable()
             } placeholder: {
-                Color(hexStringToUIColor(hex: card.bgColor ?? "#000000"))
+                Image("logo")
+                    .resizable()
+                    .frame(width: 50, height: 50, alignment: .center)
             }
             .frame(width: 40, height: 40, alignment: .center)
             .cornerRadius(20)
             .padding(.leading, 15)
             
-            VStack(alignment: .leading, spacing: 3) {
+            VStack(alignment: .center, spacing: 3) {
                 Text(card.name)
                     .font(.roboto(weight: .medium))
                     
