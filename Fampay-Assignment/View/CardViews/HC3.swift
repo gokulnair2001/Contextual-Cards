@@ -97,13 +97,13 @@ extension HC3 {
                 
                 HStack{
                     Button{
-                        slideCard()
+                        openURL(URL(string: card.cta?[0].url ?? "")!)
                     }label: {
                         Text("Action")
                             .font(.roboto(weight: .medium))
-                            .foregroundColor(.white)
+                            .foregroundColor(Color(hexStringToUIColor(hex: card.cta?[0].textColor ?? "#ffffff")))
                             .frame(width: 128, height: 42, alignment: .center)
-                            .background(.black)
+                            .background(Color(hexStringToUIColor(hex: card.cta?[0].bgColor ?? "#000000")))
                             .cornerRadius(6)
                     }
                 }.padding(.leading, 20)

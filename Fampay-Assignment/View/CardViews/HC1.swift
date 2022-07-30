@@ -50,14 +50,14 @@ extension HC1 {
             .cornerRadius(20)
             .padding(.leading, 15)
             
-            VStack(alignment: .center, spacing: 3) {
+            VStack(spacing: 3) {
                 Text(card.name)
                     .font(.roboto(weight: .medium))
                     
                 Text(card.title ?? "Error")
                     .font(.roboto(weight: .regular))
                 
-            }.padding(.leading, 10)
+            }.padding(CCAlignment(rawValue: card.formattedTitle?.align ?? "left")!.value(), 10)
             
             Spacer()
             

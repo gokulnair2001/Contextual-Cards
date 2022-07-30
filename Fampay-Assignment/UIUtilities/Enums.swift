@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 
 // MARK: - Card Types
@@ -21,5 +22,13 @@ enum CardTypes: String {
 enum CCAlignment: String {
     case left
     case right
-    case centre
+    
+    func value() -> Edge.Set {
+        switch self {
+        case .left:
+            return .leading
+        case .right:
+            return .trailing
+        }
+    }
 }
