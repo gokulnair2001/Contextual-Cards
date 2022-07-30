@@ -11,7 +11,6 @@ class CardViewModel: ObservableObject {
     
     @Published var cards = [CardModel]()
     
-    
     // Fetch method: Fetches Card details from server
     func fetchCards(with urlString: String) async throws {
         

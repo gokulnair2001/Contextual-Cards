@@ -11,6 +11,10 @@ struct ContentView: View {
     
     @ObservedObject var CardVM = CardViewModel()
     
+    @State var remindLaterCards = [Int]()
+    
+    @State var dismissedCards:[Int] = UserDefaultsRepository.GET(key: UserDefaultKey.dismissCardList) ?? []
+    
     var body: some View {
         NavigationView {
             ZStack(alignment: .top) {
@@ -32,8 +36,10 @@ struct ContentView: View {
                                     HC1(Card: cardGroup)
                                     
                                 case CardTypes.HC3.rawValue:
-                                    HC3(Card: cardGroup)
-                                      
+                                    if !remindLaterCards.contains(cardGroup.cardId) && !dismissedCards.contains(cardGroup.cardId) {
+                                        HC3(Card: cardGroup, remindLaterCards: $remindLaterCards, dismissedCards: $dismissedCards)
+                                    }
+                
                                 case CardTypes.HC5.rawValue:
                                     HC5(Card: cardGroup)
                                         
@@ -46,10 +52,11 @@ struct ContentView: View {
                                 default:
                                     EmptyView()
                                 }
-                            }.padding(.horizontal, 12)
+                            }
+                            .padding(.horizontal, 12)
                                 .padding(.vertical, 5)
                         }
-                    }
+                    }.background(Color(hexStringToUIColor(hex: "#F7F6F3")))
                     
                     Spacer()
                 }

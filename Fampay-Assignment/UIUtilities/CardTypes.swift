@@ -15,6 +15,4 @@ enum CardTypes: String {
     case HC5
     case HC6
     case HC9
-    
-   // func value()
 }

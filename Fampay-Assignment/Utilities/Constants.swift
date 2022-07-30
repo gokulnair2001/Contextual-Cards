@@ -10,6 +10,11 @@ import Foundation
 
 // MARK: - API Keys
 enum Keys {
-    
     static let getCards = "https://run.mocky.io/v3/4d8db890-5327-4c69-a3ef-b4f5f5225d17"
+}
+
+
+// MARK: - AppStorage Identifiers
+enum UserDefaultKey {
+    static let dismissCardList = "dissmissedCards"
 }

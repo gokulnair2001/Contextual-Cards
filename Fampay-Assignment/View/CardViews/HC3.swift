@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct HC3: View {
+    
     @State var Card: CardGroup
     
-    @Environment(\.openURL) var openURL
+    @Binding var remindLaterCards:[Int]
+    @Binding var dismissedCards:[Int]
     
     @State var isSlided = false
     @State var xPos = 0
+    
+    @Environment(\.openURL) var openURL
     
     var body: some View {
         if Card.isScrollable {
@@ -44,6 +48,8 @@ extension HC3 {
             Color.white
             
             hc3BottomCardUI(card: card)
+                .background(.white)
+                .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 0)
                 .onTapGesture {
                     slideCard()
                 }
@@ -115,11 +121,13 @@ extension HC3 {
         VStack(spacing: 37) {
             
             hc3Button(image: "Subtract", title: "remind later") {
-                print("subtract card")
+                withAnimation {
+                    remindLaterCards.append(Card.cardId)
+                }
             }
             
             hc3Button(image: "Dismiss", title: "dismiss now") {
-                print("dismiss button")
+              dismissCard()
             }
             
         }.frame(height: 400)
@@ -153,11 +161,22 @@ extension HC3 {
 }
 
 extension HC3 {
+    // Card Slide animation method
     func slideCard() {
-        let desiredPos = Int((UIScreen.main.bounds.width-60)/2)
         withAnimation {
             isSlided.toggle()
-            xPos = isSlided ? desiredPos : 0
+            xPos = isSlided ? 140 : 0
+        }
+    }
+    
+    // Method to dismiss card
+    func dismissCard() {
+        if !dismissedCards.contains(Card.cardId) {
+            withAnimation {
+                dismissedCards.append(Card.cardId)
+            }
+            UserDefaultsRepository.SET(key: UserDefaultKey.dismissCardList, value: dismissedCards)
+            slideCard()
         }
     }
 }
