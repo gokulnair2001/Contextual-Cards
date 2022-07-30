@@ -39,7 +39,12 @@ extension HC9 {
             AsyncImage(url: URL(string: card.bgImage?.imageURL ?? "")!) { image in
                 image.resizable()
             } placeholder: {
-                Color(hexStringToUIColor(hex: card.bgColor ?? "#000000"))
+                ZStack {
+                    Color.white
+                    
+                    Image("logo")
+                        .resizable()
+                }
             }.aspectRatio(card.bgImage?.aspectRatio ?? 1, contentMode: .fit)
                 .cornerRadius(5)
                 .padding(3)

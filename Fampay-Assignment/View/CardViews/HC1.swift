@@ -16,20 +16,19 @@ struct HC1: View {
     var body: some View {
         if Card.isScrollable {
             ScrollView(.horizontal) {
-                HStack {
+                HStack(spacing: 10) {
                     ForEach(Card.cards) { card in
                         hc1CardUI(card: card)
-                            .frame(width: UIScreen.main.bounds.width - 40)
+                            .frame(width: UIScreen.main.bounds.width - 90)
                     }
-                }
+                }.padding(3)
             }
         }
         
         if !Card.isScrollable {
-            HStack {
+            HStack(spacing: 10) {
                 ForEach(Card.cards) { card in
                     hc1CardUI(card: card)
-                        .padding(.leading, 7)
                 }
             }
         }
@@ -42,25 +41,23 @@ extension HC1 {
         HStack {
             AsyncImage(url: URL(string: card.icon?.imageURL ?? "")) { image in
                 image.resizable()
-                // image.aspectRatio(Card.bgImage?.aspectRatio ?? 1, contentMode: .fill)
             } placeholder: {
-                Color(hexStringToUIColor(hex: card.bgColor ?? "#000000"))
+                Image("logo")
+                    .resizable()
+                    .frame(width: 50, height: 50, alignment: .center)
             }
             .frame(width: 40, height: 40, alignment: .center)
             .cornerRadius(20)
-            .padding(.leading, 10)
+            .padding(.leading, 15)
             
             VStack(spacing: 3) {
                 Text(card.name)
-                    .font(.custom("Avenir Medium", size: 14))
-                    .fontWeight(.medium)
-                
+                    .font(.roboto(weight: .medium))
+                    
                 Text(card.title ?? "Error")
-                    .font(.custom("Avenir Light", size: 14))
-                    .fontWeight(.light)
+                    .font(.roboto(weight: .regular))
                 
-            }.frame(alignment: .leading)
-                .padding(.leading, 10)
+            }.padding(CCAlignment(rawValue: card.formattedTitle?.align ?? "left")!.value(), 10)
             
             Spacer()
             

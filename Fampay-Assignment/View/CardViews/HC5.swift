@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HC5: View {
-  
+    
     @State var Card: CardGroup
     
     @Environment(\.openURL) var openURL
@@ -19,7 +19,7 @@ struct HC5: View {
                 HStack {
                     ForEach(Card.cards) { card in
                         hc5CardUI(card: card)
-                            .frame(width: UIScreen.main.bounds.width)
+                            .frame(width: UIScreen.main.bounds.width-20)
                             .cornerRadius(10)
                     }
                 }
@@ -43,9 +43,15 @@ extension HC5 {
         HStack {
             AsyncImage(url: URL(string: card.bgImage?.imageURL ?? "")) { image in
                 image.resizable()
-                // image.aspectRatio(Card.bgImage?.aspectRatio ?? 1, contentMode: .fill)
+                    .aspectRatio(CGFloat(card.bgImage?.aspectRatio ?? 1), contentMode: .fill)
             } placeholder: {
-                Color(hexStringToUIColor(hex: card.bgColor ?? "#000000"))
+                ZStack {
+                    Color.white
+                    
+                    Image("logo")
+                        .resizable()
+                        .frame(width: 50, height: 50, alignment: .center)
+                }
             }
         }.frame(height: 150, alignment: .center)
             .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 0)
