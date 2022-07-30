@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+
+// MARK: - Color Extensions
 extension View {
     func hexStringToUIColor (hex:String) -> UIColor {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
@@ -31,6 +33,12 @@ extension View {
         )
     }
     
+}
+
+
+// MARK: - Alignment Extensions
+extension View {
+    
     func hLeading() -> some View {
         self
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -50,4 +58,27 @@ extension View {
         self
             .frame(maxHeight: .infinity, alignment: .topLeading)
     }
+}
+
+
+// MARK: - Font Extensions
+extension Font {
+    
+    enum RobotoFont {
+        case medium
+        case regular
+        
+        var style: String {
+            switch self {
+            case .medium:
+                return "Roboto-Medium"
+            case .regular:
+                return "Roboto-Regular"
+            }
+        }
+    }
+    
+    static func roboto(weight: RobotoFont, size: CGFloat = 14) -> Font {
+            return .custom(weight.style, size: size)
+        }
 }

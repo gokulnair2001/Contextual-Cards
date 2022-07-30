@@ -18,7 +18,7 @@ struct HC6: View {
             ScrollView(.horizontal) {
                 HStack {
                     ForEach(Card.cards) { card in
-                       hc6CardUI(card: card)
+                        hc6CardUI(card: card)
                     }
                 }
             }
@@ -27,8 +27,7 @@ struct HC6: View {
         if !Card.isScrollable {
             HStack {
                 ForEach(Card.cards) { card in
-                   hc6CardUI(card: card)
-                        .padding(.leading, 7)
+                    hc6CardUI(card: card)
                 }
             }
         }
@@ -44,14 +43,26 @@ extension HC6 {
             } placeholder: {
                 Color.yellow
             }
-            .frame(width: 20, height: 20)
+            .aspectRatio(card.bgImage?.aspectRatio ?? 1, contentMode: .fill)
+            .frame(width: 30, height: 30)
             
             Text(card.formattedTitle?.text ?? "")
+                .font(.roboto(weight: .medium))
             
-        }.onTapGesture {
+            Spacer()
+            
+            Image(systemName: "chevron.right")
+                .resizable()
+                .frame(width: 10, height: 16)
+                .padding(.trailing, 22)
+            
+        }.padding(.leading, 20)
+        .hLeading()
+        .onTapGesture {
             openURL(URL(string: card.url)!)
-            
-        }.frame(height: 100)
-            .background(Color(hexStringToUIColor(hex: card.bgColor ?? "#ffffff")))
+        }.frame(width: UIScreen.main.bounds.width - 15, height: 60)
+         .background(Color(hexStringToUIColor(hex: card.bgColor ?? "#ffffff")))
+         .cornerRadius(15)
+         .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 0)
     }
 }

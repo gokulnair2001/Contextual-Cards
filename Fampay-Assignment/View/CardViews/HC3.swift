@@ -18,8 +18,8 @@ struct HC3: View {
                 HStack {
                     ForEach(Card.cards) { card in
                         hc3CardUI(card: card)
-                            .frame(width: UIScreen.main.bounds.width)
-                            .cornerRadius(10)
+                        // .frame(width: UIScreen.main.bounds.width)
+                        //.cornerRadius(10)
                     }
                 }
             }
@@ -29,7 +29,6 @@ struct HC3: View {
             VStack {
                 ForEach(Card.cards) { card in
                     hc3CardUI(card: card)
-                        .padding(.leading, 5)
                 }
             }
         }
@@ -39,31 +38,46 @@ struct HC3: View {
 extension HC3 {
     @ViewBuilder
     func hc3CardUI(card: Card) -> some View {
-        ZStack {
+        ZStack(alignment: .bottom) {
             AsyncImage(url: URL(string: card.bgImage?.imageURL ?? "")) { image in
                 image.resizable()
-                // image.aspectRatio(Card.bgImage?.aspectRatio ?? 1, contentMode: .fill)
+                    .aspectRatio(card.bgImage?.aspectRatio ?? 1, contentMode: .fit)
             } placeholder: {
                 Color(hexStringToUIColor(hex: card.bgColor ?? "#000000"))
-            }
+            }//.aspectRatio(card.bgImage?.aspectRatio ?? 1, contentMode: .fill)
             
-            VStack {
+            VStack(alignment: .leading, spacing: 28) {
                 
                 Text(card.title ?? "Error")
+                    .font(.roboto(weight: .medium, size: 30))
+                    .padding(.leading, 20)
+                    .padding(.trailing, 27)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.leading)
+                    .hLeading()
+                
+                Text(card.cardDescription ?? "Error")
+                    .font(.roboto(weight: .regular, size: 12))
+                    .padding(.leading, 20)
+                    .padding(.trailing, 40)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.leading)
+                    .hLeading()
                 
                 HStack{
                     Button{
                         print("Action")
                     }label: {
                         Text("Action")
+                            .font(.roboto(weight: .medium))
                             .foregroundColor(.white)
-                            .frame(width: 150, height: 50, alignment: .center)
+                            .frame(width: 128, height: 42, alignment: .center)
                             .background(.black)
-                            .cornerRadius(10)
+                            .cornerRadius(6)
                     }
-                }.hLeading()
+                }.padding(.leading, 20)
             }
-            .padding()
+            .frame(width: UIScreen.main.bounds.width-60, height: (400-125))
             
         }.frame(height: 400, alignment: .center)
             .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 0)
