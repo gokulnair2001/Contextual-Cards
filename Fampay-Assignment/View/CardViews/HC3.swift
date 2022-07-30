@@ -12,6 +12,9 @@ struct HC3: View {
     
     @Environment(\.openURL) var openURL
     
+    @State var isSlided = false
+    @State var xPos = 0
+    
     var body: some View {
         if Card.isScrollable {
             ScrollView(.horizontal) {
@@ -41,17 +44,21 @@ extension HC3 {
             Color.white
             
             hc3BottomCardUI(card: card)
+                .onTapGesture {
+                    slideCard()
+                }
             
             hc3CardTopUI(card: card)
+                .offset(x: CGFloat(xPos), y: 0)
+                .onTapGesture {
+                    openURL(URL(string: card.url)!)
+                }
             
         }.frame(height: 400, alignment: .center)
             .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 0)
             .cornerRadius(12)
-            .onTapGesture {
-                openURL(URL(string: card.url)!)
-            }
             .onLongPressGesture {
-                print("long pressss")
+                slideCard()
             }
     }
     
@@ -115,8 +122,8 @@ extension HC3 {
                 print("dismiss button")
             }
             
-        }
-        .padding(.leading, 21)
+        }.frame(height: 400)
+        .padding(.leading, 31)
         .hLeading()
     }
     
@@ -145,6 +152,15 @@ extension HC3 {
     }
 }
 
+extension HC3 {
+    func slideCard() {
+        let desiredPos = Int((UIScreen.main.bounds.width-60)/2)
+        withAnimation {
+            isSlided.toggle()
+            xPos = isSlided ? desiredPos : 0
+        }
+    }
+}
 
 //struct HC3_Previews: PreviewProvider {
 //    static var previews: some View {
