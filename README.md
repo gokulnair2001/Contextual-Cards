@@ -1,12 +1,12 @@
 # Contextual Cards
 
-* Contextual Card is a server driven UI based app. In this project every piece of UI is driven by server thus it holds the flexibility to adapt the accordoing to the JSON provided. The view acts as a plug and play system.
+* Contextual Card is a server driven UI based app. In this project every piece of UI is driven by server thus it holds the flexibility to adapt according to the JSON provided. The view acts as a plug and play system. 
 
 # 📲 Steps to run 
 * Clone or download the Zip file
 * Open ```Fampay-Assignment.xcodeproj``` file 
 * Run the project (Make sure your Mac is connected to Internet) 
-* Yup, you are ready to use it ✌🏻
+* Yes, you are ready to use it ✌🏻
 
 ## 📸 SnapShots
 
@@ -21,9 +21,9 @@
 
 ## 🗞 Information
 
-These are the few things followed in the project:
+Few things kept in mind during the implementation :
 * The app is following [MVVC(Model View ViewModel)](https://www.hackingwithswift.com/books/ios-swiftui/introducing-mvvm-into-your-swiftui-project) Architecture
-* All the HTTPRequest made is done through [Asynchronous](https://www.raywenderlich.com/25013447-async-await-in-swiftui) calls
+* All the HTTPRequests are done through [Asynchronous](https://www.raywenderlich.com/25013447-async-await-in-swiftui) calls
 * All the Image/Card is Server fetched, thus we are using [AsyncImage](https://developer.apple.com/documentation/swiftui/asyncimage) in it
 * The app uses UserDefaults to store data
 * Custom fonts are used in the project
@@ -33,10 +33,13 @@ These are the few things followed in the project:
 * Since scroll view doesnt support inbuit [refreshable](https://developer.apple.com/documentation/swiftui/label/refreshable(action:)) thus we have used a [custom scroll view](https://stackoverflow.com/a/65100922/13105622) refreshable
 
 ## 👀 Note
-Few additional features added are:
-1. Toast view, which appears on dismiss of a toast
+Few additional features added from my side:
+1. Toast view, which appears on dismissing a Card
 2. Custom Refreshable added
 3. Network Warning added
+
+## 💻 OS Version
+The current project is built on Xcode 13.4.1 with iOS 15.5+ support
 
 ## ⚖️ License
 The project is available under MIT [License](https://github.com/gokulnair2001/Fampay-Assignment/blob/main/License)
