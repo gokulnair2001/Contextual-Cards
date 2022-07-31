@@ -9,6 +9,7 @@ import Foundation
 
 class CardViewModel: ObservableObject {
     
+    // Publisher card
     @Published var cards = [CardModel]()
     
     // Fetch method: Fetches Card details from server

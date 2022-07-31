@@ -9,17 +9,19 @@ import SwiftUI
 
 struct HC5: View {
     
+    /// Card model instance
     @State var Card: CardGroup
     
+    /// Environment key to openURL
     @Environment(\.openURL) var openURL
     
     var body: some View {
         if Card.isScrollable {
-            ScrollView(.horizontal) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(Card.cards) { card in
                         hc5CardUI(card: card)
-                            .frame(width: UIScreen.main.bounds.width-20)
+                            .frame(width: UIScreen.main.bounds.width-30)
                             .cornerRadius(10)
                     }
                 }
@@ -37,10 +39,13 @@ struct HC5: View {
     }
 }
 
+// MARK: - HC5 Card View Builders
 extension HC5 {
+    // HC5 Card UI builder
     @ViewBuilder
     func hc5CardUI(card: Card) -> some View {
         HStack {
+            
             AsyncImage(url: URL(string: card.bgImage?.imageURL ?? "")) { image in
                 image.resizable()
                     .aspectRatio(CGFloat(card.bgImage?.aspectRatio ?? 1), contentMode: .fill)
@@ -53,6 +58,7 @@ extension HC5 {
                         .frame(width: 50, height: 50, alignment: .center)
                 }
             }
+            
         }.frame(height: 150, alignment: .center)
             .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 0)
             .onTapGesture {
@@ -60,9 +66,3 @@ extension HC5 {
             }
     }
 }
-
-//struct HC5_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HC5()
-//    }
-//}

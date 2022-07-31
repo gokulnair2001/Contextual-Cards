@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 
-// MARK: - Color Extensions
+// MARK: - Extension used to convert HEX -> UIColor
 extension View {
     func hexStringToUIColor (hex:String) -> UIColor {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
@@ -60,7 +60,7 @@ extension View {
     }
 }
 
-// MARK: - String Extension
+// MARK: - String Formatter
 extension View {
     
     func formatText(input: String, replaceBy: [Entity]) -> [Entity] {
@@ -81,6 +81,7 @@ extension View {
         return entityModel
     }
     
+    // Text View builder for formatted titles
     @ViewBuilder
     func textGenerator(entity: [Entity]) -> some View {
         let layout = [GridItem(.flexible())]
@@ -103,7 +104,7 @@ extension View {
 }
 
 
-// MARK: - Font Extensions
+// MARK: - Font Extension
 extension Font {
     
     enum RobotoFont {

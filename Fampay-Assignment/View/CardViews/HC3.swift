@@ -9,19 +9,25 @@ import SwiftUI
 
 struct HC3: View {
     
+    /// Card model instance
     @State var Card: CardGroup
     
+    /// Binding var for remind later
     @Binding var remindLaterCards:[Int]
+    /// Binding var for dismissed cards
     @Binding var dismissedCards:[Int]
     
+    /// Card slide animation tracker
     @State var isSlided = false
+    /// Card position tracker
     @State var xPos = 0
     
+    /// Environment key to openURL
     @Environment(\.openURL) var openURL
     
     var body: some View {
         if Card.isScrollable {
-            ScrollView(.horizontal) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(Card.cards) { card in
                         hc3CardUI(card: card)
@@ -40,7 +46,9 @@ struct HC3: View {
     }
 }
 
+// MARK: - HC3 Card View Builders
 extension HC3 {
+    // HC3 Card UI builder
     @ViewBuilder
     func hc3CardUI(card: Card) -> some View {
         ZStack {
@@ -70,7 +78,7 @@ extension HC3 {
     }
     
     
-    // MARK: - Top Visible Card UI
+    // MARK: Top Visible Card UI
     @ViewBuilder
     func hc3CardTopUI(card: Card) -> some View {
         ZStack {
@@ -114,7 +122,7 @@ extension HC3 {
     }
     
     
-    // MARK: - Card Bottom UI
+    // Card Bottom UI
     @ViewBuilder
     func hc3BottomCardUI(card: Card) -> some View {
         VStack(spacing: 37) {
@@ -126,16 +134,16 @@ extension HC3 {
             }
             
             hc3Button(image: "Dismiss", title: "dismiss now") {
-              dismissCard()
+                dismissCard()
             }
             
         }.frame(height: 400)
-        .padding(.leading, 31)
-        .hLeading()
+            .padding(.leading, 31)
+            .hLeading()
     }
     
     
-    // MARK: - Custom Button Builder
+    // Custom Button Builder
     @ViewBuilder
     func hc3Button(image:String, title: String ,action: @escaping (()->Void)) -> some View {
         Button {
@@ -159,6 +167,7 @@ extension HC3 {
     }
 }
 
+// MARK: - HC3 Card Methods
 extension HC3 {
     // Card Slide animation method
     func slideCard() {
@@ -179,9 +188,3 @@ extension HC3 {
         }
     }
 }
-
-//struct HC3_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HC3()
-//    }
-//}

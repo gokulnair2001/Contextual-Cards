@@ -9,30 +9,26 @@ import SwiftUI
 
 struct HC9: View {
     
+    /// Card model instance
     @State var Card: CardGroup
     
+    /// Environment key to openURL
     @Environment(\.openURL) var openURL
     
     var body: some View {
-        if Card.isScrollable {
-            ScrollView(.horizontal) {
-                HStack {
-                    ForEach(Card.cards) { card in
-                        hc9CardUI(card: card)
-                    }
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                ForEach(Card.cards) { card in
+                    hc9CardUI(card: card)
                 }
-            }
-        }
-        
-        if !Card.isScrollable {
-            ForEach(Card.cards) { card in
-                hc9CardUI(card: card)
             }
         }
     }
 }
 
+// MARK: - HC9 Card View Builder
 extension HC9 {
+    // HC9 Card UI builder
     @ViewBuilder
     func hc9CardUI(card: Card) -> some View {
         ZStack {
@@ -57,9 +53,3 @@ extension HC9 {
             }
     }
 }
-
-//struct HC9_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HC9()
-//    }
-//}
