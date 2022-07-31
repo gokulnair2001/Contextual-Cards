@@ -12,5 +12,7 @@ These are the few things followed in the project:
 * The app uses UserDefaults to store data
 
 ## 🧰 Outsourced Component
+* We are using scroll view in the app and since scroll view doesnt support inbuit [refreshable](https://developer.apple.com/documentation/swiftui/label/refreshable(action:)) thus we used a [custom scroll view](https://stackoverflow.com/a/65100922/13105622)
 
 ## ⚖️ License
+The project is available under MIT [License](https://github.com/gokulnair2001/Fampay-Assignment/blob/main/License)
