@@ -39,7 +39,7 @@ Few additional features added from my side:
 3. Network Warning added
 
 ## 💻 OS Version
-The current project is built on Xcode 13.4.1 with iOS 15.5+ support
+* The current project is built on Xcode 13.4.1 with iOS 15.5+ support
 
 ## ⚖️ License
 * The project is available under MIT [License](https://github.com/gokulnair2001/Fampay-Assignment/blob/main/License)
