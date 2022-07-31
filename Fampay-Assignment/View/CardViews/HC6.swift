@@ -45,7 +45,8 @@ extension HC6 {
             AsyncImage(url: URL(string: card.icon?.imageURL ?? "")) { image in
                 image.resizable()
             } placeholder: {
-                Color.yellow
+                Image("logo")
+                    .resizable()
             }
             .aspectRatio(card.bgImage?.aspectRatio ?? 1, contentMode: .fill)
             .frame(width: 30, height: 30)

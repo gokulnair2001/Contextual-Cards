@@ -21,7 +21,7 @@ struct HC5: View {
                 HStack {
                     ForEach(Card.cards) { card in
                         hc5CardUI(card: card)
-                            .frame(width: UIScreen.main.bounds.width-30)
+                            .frame(width: Card.cards.count == 1 ? UIScreen.main.bounds.width-30 : UIScreen.main.bounds.width-60)
                             .cornerRadius(10)
                     }
                 }
@@ -60,7 +60,7 @@ extension HC5 {
             }
             
         }.frame(height: 150, alignment: .center)
-            .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 0)
+            .shadow(color: .gray.opacity(0.5), radius: 1, x: 0, y: 0)
             .onTapGesture {
                 openURL(URL(string: verifiedUrl(card.url))!)
             }

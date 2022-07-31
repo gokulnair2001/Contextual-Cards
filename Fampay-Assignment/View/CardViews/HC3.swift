@@ -16,6 +16,8 @@ struct HC3: View {
     @Binding var remindLaterCards:[Int]
     /// Binding var for dismissed cards
     @Binding var dismissedCards:[Int]
+    /// Binding var for showing toast
+    @Binding var isShowingToast:Bool
     
     /// Card slide animation tracker
     @State var isSlided = false
@@ -57,7 +59,7 @@ extension HC3 {
             
             hc3BottomCardUI(card: card)
                 .background(.white)
-                .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 0)
+                .shadow(color: .gray.opacity(0.5), radius: 1, x: 0, y: 0)
                 .onTapGesture {
                     slideCard()
                 }
@@ -69,7 +71,7 @@ extension HC3 {
                 }
             
         }.frame(height: 400, alignment: .center)
-            .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 0)
+            .shadow(color: .gray.opacity(0.5), radius: 1, x: 0, y: 0)
             .cornerRadius(12)
             .onLongPressGesture {
                 slideCard()
@@ -85,7 +87,7 @@ extension HC3 {
             AsyncImage(url: URL(string: card.bgImage?.imageURL ?? "")) { image in
                 image.resizable()
                     .cornerRadius(12)
-                    .aspectRatio(CGFloat(card.bgImage?.aspectRatio ?? 1), contentMode: .fit)
+                    .aspectRatio(CGFloat(card.bgImage?.aspectRatio ?? 1), contentMode: .fill)
             } placeholder: {
                 Color(hexStringToUIColor(hex: card.bgColor ?? "#000000"))
             }
@@ -137,6 +139,7 @@ extension HC3 {
             hc3Button(image: "Subtract", title: "remind later") {
                 withAnimation {
                     remindLaterCards.append(Card.cardId)
+                    isShowingToast.toggle()
                 }
             }
             
@@ -189,6 +192,7 @@ extension HC3 {
         if !dismissedCards.contains(Card.cardId) {
             withAnimation {
                 dismissedCards.append(Card.cardId)
+                isShowingToast.toggle()
             }
             UserDefaultsRepository.SET(key: UserDefaultKey.dismissCardList, value: dismissedCards)
             slideCard()

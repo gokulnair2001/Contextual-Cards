@@ -48,9 +48,8 @@ extension HC1 {
             } placeholder: {
                 Image("logo")
                     .resizable()
-                    .frame(width: 50, height: 50, alignment: .center)
             }
-            .frame(width: 40, height: 40, alignment: .center)
+            .frame(width: 35, height: 35, alignment: .center)
             .cornerRadius(20)
             .padding(.leading, 15)
             
@@ -66,7 +65,7 @@ extension HC1 {
         }.frame(height: 60)
             .background(Color(hexStringToUIColor(hex: card.bgColor ?? "#ffffff")))
             .cornerRadius(10)
-            .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 0)
+            .shadow(color: .gray.opacity(0.5), radius: 1, x: 0, y: 0)
         
             .onTapGesture {
                 openURL(URL(string: verifiedUrl(card.url))!)
