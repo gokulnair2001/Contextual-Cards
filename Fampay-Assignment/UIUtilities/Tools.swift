@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 
-// MARK: - Color Extensions
+// MARK: - Extension used to convert HEX -> UIColor
 extension View {
     func hexStringToUIColor (hex:String) -> UIColor {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
@@ -60,50 +60,54 @@ extension View {
     }
 }
 
-// MARK: - String Extension
+// MARK: - String Formatter
 extension View {
-    
+    // Format the text and creates a feed for customCardText()
     func formatText(input: String, replaceBy: [Entity]) -> [Entity] {
         
-        let stringArray = input.components(separatedBy: " ")
-        var count = 0
-        var entityModel:[Entity] = [Entity]()
+        if replaceBy.isEmpty {
+            return [Entity.init(text: input, color: "#000000")]
+        }
+        
+        let stringArray = input.components(separatedBy: " ") // Formatted Title text
+        var count = 0 // Counter to keep 👀 on array elements
+        var entityModel:[Entity] = [Entity]() // Result model which consists of final Entity
         
         for i in 0..<stringArray.count {
+
+            /// Checks for {} in the string
             if stringArray[i] == "{}" || stringArray[i] == "{}!" {
+                
+                /// If {} present then add the desired text and color type
                 entityModel.append(Entity.init(text: replaceBy[count].text, color: replaceBy[count].color))
                 count += 1
+                
             }else {
+                
+                /// If {} not present then add the existing string
                 entityModel.append(Entity.init(text: stringArray[i], color: "#000000"))
             }
         }
         
+        // Returns final Entity
         return entityModel
     }
     
-    @ViewBuilder
-    func textGenerator(entity: [Entity]) -> some View {
-        let layout = [GridItem(.flexible())]
+    // Text builder for formatted titles
+    func customCardText(entity: [Entity]) -> Text {
         
-        VStack {
-            LazyHGrid(rows: layout, alignment: .firstTextBaseline, spacing: 5) {
-                ForEach(entity) { ent in
-                    VStack(spacing: 0) {
-                        Text(ent.text.trimmingCharacters(in: .whitespacesAndNewlines))
-                            .foregroundColor(Color(hexStringToUIColor(hex: ent.color)))
-                            .lineLimit(1)
-                            .multilineTextAlignment(.leading)
-                            .padding(.bottom, 8)
-                        
-                    }.frame(height: 50, alignment: .leading)
-                }
-            }
-        }.padding(.leading, 20)
+        var finalText = Text("")
+        
+        entity.forEach { entity in
+            finalText = finalText + Text("\(entity.text) ").foregroundColor(Color(hexStringToUIColor(hex: entity.color)))
+        }
+        
+        return finalText
     }
 }
 
 
-// MARK: - Font Extensions
+// MARK: - Font Extension
 extension Font {
     
     enum RobotoFont {
@@ -122,5 +126,20 @@ extension Font {
     
     static func roboto(weight: RobotoFont, size: CGFloat = 14) -> Font {
         return .custom(weight.style, size: size)
+    }
+}
+
+
+// MARK: - URL Validator
+extension View {
+    func verifiedUrl (_ urlString: String?) -> String {
+        var state = false
+        if let urlString = urlString {
+            if let url = NSURL(string: urlString) {
+                state = UIApplication.shared.canOpenURL(url as URL)
+            }
+        }
+    
+        return state ? urlString! : defaultURL.fampayURL
     }
 }

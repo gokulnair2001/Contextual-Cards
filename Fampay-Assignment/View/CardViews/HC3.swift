@@ -9,19 +9,25 @@ import SwiftUI
 
 struct HC3: View {
     
+    /// Card model instance
     @State var Card: CardGroup
     
+    /// Binding var for remind later
     @Binding var remindLaterCards:[Int]
+    /// Binding var for dismissed cards
     @Binding var dismissedCards:[Int]
     
+    /// Card slide animation tracker
     @State var isSlided = false
+    /// Card position tracker
     @State var xPos = 0
     
+    /// Environment key to openURL
     @Environment(\.openURL) var openURL
     
     var body: some View {
         if Card.isScrollable {
-            ScrollView(.horizontal) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(Card.cards) { card in
                         hc3CardUI(card: card)
@@ -40,7 +46,9 @@ struct HC3: View {
     }
 }
 
+// MARK: - HC3 Card View Builders
 extension HC3 {
+    // HC3 Card UI builder
     @ViewBuilder
     func hc3CardUI(card: Card) -> some View {
         ZStack {
@@ -57,7 +65,7 @@ extension HC3 {
             hc3CardTopUI(card: card)
                 .offset(x: CGFloat(xPos), y: 0)
                 .onTapGesture {
-                    openURL(URL(string: card.url)!)
+                    openURL(URL(string: verifiedUrl(card.url))!)
                 }
             
         }.frame(height: 400, alignment: .center)
@@ -70,7 +78,7 @@ extension HC3 {
     }
     
     
-    // MARK: - Top Visible Card UI
+    // MARK: Top Visible Card UI
     @ViewBuilder
     func hc3CardTopUI(card: Card) -> some View {
         ZStack {
@@ -84,11 +92,18 @@ extension HC3 {
             
             VStack(alignment: .leading, spacing: 28) {
                 
-                textGenerator(entity: formatText(input: (card.formattedTitle?.text ?? card.title) ?? "ERROR", replaceBy: card.formattedTitle?.entities ?? [Entity].init()))
-                    .font(.roboto(weight: .medium, size: 25))
+                customCardText(entity: formatText(input: (card.formattedTitle?.text ?? card.title) ?? "",
+                                                  replaceBy: card.formattedTitle?.entities ?? [Entity].init()))
+                    .font(.roboto(weight: .medium, size: 30))
+                    .frame(alignment: .leading)
+                    .padding(.leading, 20)
+                    .padding(.trailing, 27)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.leading)
                 
-                Text(card.cardDescription ?? "Error")
-                    .font(.roboto(weight: .regular, size: 12))
+                customCardText(entity: formatText(input: (card.formattedDescription?.text ?? card.cardDescription) ?? "",
+                                                  replaceBy: card.formattedDescription?.entities ?? [Entity].init()))
+                    .font(.roboto(weight: .regular, size: 14))
                     .padding(.leading, 20)
                     .padding(.trailing, 40)
                     .lineLimit(2)
@@ -97,9 +112,9 @@ extension HC3 {
                 
                 HStack{
                     Button{
-                        openURL(URL(string: card.cta?[0].url ?? "")!)
+                        openURL(URL(string: verifiedUrl(card.cta?[0].url ?? ""))!)
                     }label: {
-                        Text("Action")
+                        Text(card.cta?[0].text ?? "Action")
                             .font(.roboto(weight: .medium))
                             .foregroundColor(Color(hexStringToUIColor(hex: card.cta?[0].textColor ?? "#ffffff")))
                             .frame(width: 128, height: 42, alignment: .center)
@@ -114,7 +129,7 @@ extension HC3 {
     }
     
     
-    // MARK: - Card Bottom UI
+    // Card Bottom UI
     @ViewBuilder
     func hc3BottomCardUI(card: Card) -> some View {
         VStack(spacing: 37) {
@@ -126,16 +141,16 @@ extension HC3 {
             }
             
             hc3Button(image: "Dismiss", title: "dismiss now") {
-              dismissCard()
+                dismissCard()
             }
             
         }.frame(height: 400)
-        .padding(.leading, 31)
-        .hLeading()
+            .padding(.leading, 31)
+            .hLeading()
     }
     
     
-    // MARK: - Custom Button Builder
+    // Custom Button Builder
     @ViewBuilder
     func hc3Button(image:String, title: String ,action: @escaping (()->Void)) -> some View {
         Button {
@@ -159,6 +174,7 @@ extension HC3 {
     }
 }
 
+// MARK: - HC3 Card Methods
 extension HC3 {
     // Card Slide animation method
     func slideCard() {
@@ -178,10 +194,5 @@ extension HC3 {
             slideCard()
         }
     }
-}
 
-//struct HC3_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HC3()
-//    }
-//}
+}

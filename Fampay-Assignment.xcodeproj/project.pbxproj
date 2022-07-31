@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1E74F8D128959F85000B2D81 /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E74F8D028959F85000B2D81 /* ScrollView.swift */; };
+		1E74F8D128959F85000B2D81 /* CustomScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E74F8D028959F85000B2D81 /* CustomScrollView.swift */; };
 		1E90CA002894492700AC932D /* HC1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E90C9FF2894492700AC932D /* HC1.swift */; };
 		1E90CA0228945C2E00AC932D /* HC9.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E90CA0128945C2E00AC932D /* HC9.swift */; };
 		1E90CA072894F42200AC932D /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E90CA052894F42200AC932D /* Roboto-Regular.ttf */; };
@@ -29,7 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1E74F8D028959F85000B2D81 /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
+		1E74F8D028959F85000B2D81 /* CustomScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScrollView.swift; sourceTree = "<group>"; };
 		1E90C9FF2894492700AC932D /* HC1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HC1.swift; sourceTree = "<group>"; };
 		1E90CA0128945C2E00AC932D /* HC9.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HC9.swift; sourceTree = "<group>"; };
 		1E90CA052894F42200AC932D /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
@@ -87,7 +87,7 @@
 		1E90CA0A289514ED00AC932D /* UIUtilities */ = {
 			isa = PBXGroup;
 			children = (
-				1E74F8D028959F85000B2D81 /* ScrollView.swift */,
+				1E74F8D028959F85000B2D81 /* CustomScrollView.swift */,
 				1EF686A028941B6B00F6348C /* Tools.swift */,
 				1EF6869E2894189700F6348C /* Enums.swift */,
 				1E90CA0B2895178900AC932D /* UserDefaultsRepository.swift */,
@@ -250,7 +250,7 @@
 				1EF6868528940E2C00F6348C /* ContentView.swift in Sources */,
 				1E90CA002894492700AC932D /* HC1.swift in Sources */,
 				1EF6869B2894100100F6348C /* CardViewModel.swift in Sources */,
-				1E74F8D128959F85000B2D81 /* ScrollView.swift in Sources */,
+				1E74F8D128959F85000B2D81 /* CustomScrollView.swift in Sources */,
 				1EF6868328940E2C00F6348C /* Fampay_AssignmentApp.swift in Sources */,
 				1EF6869D2894126800F6348C /* HC6.swift in Sources */,
 				1EF686A128941B6B00F6348C /* Tools.swift in Sources */,
@@ -405,7 +405,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -437,7 +437,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

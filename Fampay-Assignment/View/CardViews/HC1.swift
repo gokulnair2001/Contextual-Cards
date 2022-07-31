@@ -9,13 +9,15 @@ import SwiftUI
 
 struct HC1: View {
     
+    /// Card model instance
     @State var Card: CardGroup
     
+    /// Environment key to openURL
     @Environment(\.openURL) var openURL
     
     var body: some View {
         if Card.isScrollable {
-            ScrollView(.horizontal) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 10) {
                     ForEach(Card.cards) { card in
                         hc1CardUI(card: card)
@@ -35,7 +37,9 @@ struct HC1: View {
     }
 }
 
+// MARK: - HC1 Card View Builders
 extension HC1 {
+    // HC1 Card UI builder
     @ViewBuilder
     func hc1CardUI(card: Card) -> some View {
         HStack {
@@ -50,30 +54,22 @@ extension HC1 {
             .cornerRadius(20)
             .padding(.leading, 15)
             
-            VStack(spacing: 3) {
-                Text(card.name)
-                    .font(.roboto(weight: .medium))
-                    
-                Text(card.title ?? "Error")
-                    .font(.roboto(weight: .regular))
-                
-            }.padding(CCAlignment(rawValue: card.formattedTitle?.align ?? "left")!.value(), 10)
+            customCardText(entity: formatText(input: (card.formattedTitle?.text ?? card.title) ?? "",
+                                              replaceBy: card.formattedTitle?.entities ?? [Entity].init()))
+            .font(.roboto(weight: .medium))
+            .padding(CCAlignment(rawValue: card.formattedTitle?.align ?? "left")!.value(), 10)
+            
             
             Spacer()
             
+            
         }.frame(height: 60)
-         .background(Color(hexStringToUIColor(hex: card.bgColor ?? "#ffffff")))
-         .cornerRadius(10)
-         .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 0)
-         
-        .onTapGesture {
-            openURL(URL(string: card.url)!)
-        }
+            .background(Color(hexStringToUIColor(hex: card.bgColor ?? "#ffffff")))
+            .cornerRadius(10)
+            .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 0)
+        
+            .onTapGesture {
+                openURL(URL(string: verifiedUrl(card.url))!)
+            }
     }
 }
-
-//struct HC1_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HC1()
-//    }
-//}

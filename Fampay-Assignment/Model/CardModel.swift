@@ -114,4 +114,5 @@ struct FormattedTitle: Codable {
     let text: String
     let entities: [Entity]
     let align: String?
+   
 }
