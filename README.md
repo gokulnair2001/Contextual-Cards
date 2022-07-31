@@ -32,5 +32,11 @@ These are the few things followed in the project:
 
 * Since scroll view doesnt support inbuit [refreshable](https://developer.apple.com/documentation/swiftui/label/refreshable(action:)) thus we have used a [custom scroll view](https://stackoverflow.com/a/65100922/13105622) refreshable
 
+## 👀 Note
+Few additional features added are:
+1. Toast view, which appears on dismiss of a toast
+2. Custom Refreshable added
+3. Network Warning added
+
 ## ⚖️ License
 The project is available under MIT [License](https://github.com/gokulnair2001/Fampay-Assignment/blob/main/License)
