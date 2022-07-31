@@ -21,6 +21,12 @@ struct ContentView: View {
     /// User default to track dismissed cards
     @State var dismissedCards:[Int] = UserDefaultsRepository.GET(key: UserDefaultKey.dismissCardList) ?? []
     
+    /// Flag to check fetch status
+    @State var isDataFetched = true
+    
+    /// Toast Flag
+    @State var isShowingToast = false
+    
     var body: some View {
         NavigationView {
             ZStack(alignment: .top) {
@@ -33,9 +39,23 @@ struct ContentView: View {
                     .frame(width: 86, height: 30, alignment: .center)
                     .offset(x:0, y: -20)
                     
+                    /// Network Warning
+                    if !isDataFetched {
+                        ZStack {
+                            networkWarning
+                        }
+                    }
+                    
                     /// Main Card view
                     mainCardsView
-                    
+                }
+                .zIndex(2)
+                
+                // Toast View
+                if isShowingToast {
+                    ToastView(text: "Removed from list", icon: "rectangle.grid.1x2", logoColor: .orange, isShowing: $isShowingToast)
+                        .transition(.move(edge: .bottom))
+                        .zIndex(3)
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -53,9 +73,24 @@ struct ContentView: View {
     }
 }
 
-
 // MARK: - ContentView views
 extension ContentView {
+    
+    /// No Network Label
+    var networkWarning: some View {
+        
+        HStack(spacing: 10) {
+            Image(systemName: "exclamationmark.triangle")
+                .resizable()
+                .frame(width: 20, height: 20, alignment: .center)
+                .foregroundColor(.white)
+            
+            Text("No connection")
+                .font(.roboto(weight: .regular, size: 17))
+            
+        }.frame(width: UIScreen.main.bounds.width, height: 30, alignment: .center)
+            .background(Color(hexStringToUIColor(hex: "#f0a834")))
+    }
     
     /// Main Card View
     var mainCardsView: some View {
@@ -75,7 +110,7 @@ extension ContentView {
                         
                     case CardTypes.HC3.rawValue:
                         if !remindLaterCards.contains(cardGroup.cardId) && !dismissedCards.contains(cardGroup.cardId) {
-                            HC3(Card: cardGroup, remindLaterCards: $remindLaterCards, dismissedCards: $dismissedCards)
+                            HC3(Card: cardGroup, remindLaterCards: $remindLaterCards, dismissedCards: $dismissedCards, isShowingToast: $isShowingToast)
                         }
                         
                     case CardTypes.HC5.rawValue:
@@ -94,6 +129,7 @@ extension ContentView {
                 .padding(.horizontal, 12)
                 .padding(.vertical, 5)
             }
+            
         }.background(Color(hexStringToUIColor(hex: "#F7F6F3")))
             .coordinateSpace(name: "refreshable")
     }
@@ -107,8 +143,14 @@ extension ContentView {
         Task {
             do {
                 try await CardVM.fetchCards(with: Keys.getCards)
+                withAnimation {
+                    isDataFetched = true
+                }
             }catch {
                 print(error.localizedDescription)
+                withAnimation {
+                    isDataFetched = false
+                }
                 showingAlert.toggle()
             }
         }

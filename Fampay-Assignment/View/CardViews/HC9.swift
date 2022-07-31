@@ -45,9 +45,9 @@ extension HC9 {
                 .cornerRadius(5)
                 .padding(3)
             
-        }.frame(height: 195)
+        }.frame(height: CGFloat(Card.height ?? 78))
             .cornerRadius(5)
-            .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 0)
+            .shadow(color: .gray.opacity(0.5), radius: 1, x: 0, y: 0)
             .onTapGesture {
                 openURL(URL(string: verifiedUrl(card.url))!)
             }
