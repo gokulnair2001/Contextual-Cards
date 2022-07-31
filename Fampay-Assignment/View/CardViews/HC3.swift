@@ -65,7 +65,7 @@ extension HC3 {
             hc3CardTopUI(card: card)
                 .offset(x: CGFloat(xPos), y: 0)
                 .onTapGesture {
-                    openURL(URL(string: card.url)!)
+                    openURL(URL(string: verifiedUrl(card.url))!)
                 }
             
         }.frame(height: 400, alignment: .center)
@@ -92,11 +92,18 @@ extension HC3 {
             
             VStack(alignment: .leading, spacing: 28) {
                 
-                textGenerator(entity: formatText(input: (card.formattedTitle?.text ?? card.title) ?? "ERROR", replaceBy: card.formattedTitle?.entities ?? [Entity].init()))
-                    .font(.roboto(weight: .medium, size: 25))
+                customCardText(entity: formatText(input: (card.formattedTitle?.text ?? card.title) ?? "",
+                                                  replaceBy: card.formattedTitle?.entities ?? [Entity].init()))
+                    .font(.roboto(weight: .medium, size: 30))
+                    .frame(alignment: .leading)
+                    .padding(.leading, 20)
+                    .padding(.trailing, 27)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.leading)
                 
-                Text(card.cardDescription ?? "Error")
-                    .font(.roboto(weight: .regular, size: 12))
+                customCardText(entity: formatText(input: (card.formattedDescription?.text ?? card.cardDescription) ?? "",
+                                                  replaceBy: card.formattedDescription?.entities ?? [Entity].init()))
+                    .font(.roboto(weight: .regular, size: 14))
                     .padding(.leading, 20)
                     .padding(.trailing, 40)
                     .lineLimit(2)
@@ -105,9 +112,9 @@ extension HC3 {
                 
                 HStack{
                     Button{
-                        openURL(URL(string: card.cta?[0].url ?? "")!)
+                        openURL(URL(string: verifiedUrl(card.cta?[0].url ?? ""))!)
                     }label: {
-                        Text("Action")
+                        Text(card.cta?[0].text ?? "Action")
                             .font(.roboto(weight: .medium))
                             .foregroundColor(Color(hexStringToUIColor(hex: card.cta?[0].textColor ?? "#ffffff")))
                             .frame(width: 128, height: 42, alignment: .center)
@@ -187,4 +194,5 @@ extension HC3 {
             slideCard()
         }
     }
+
 }

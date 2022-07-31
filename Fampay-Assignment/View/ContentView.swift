@@ -39,8 +39,13 @@ struct ContentView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .alert("Error while loading", isPresented: $showingAlert) {
-                Button("Ok", role: .cancel) { }
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text("Error"),
+                      message: Text("Seems like you got into some issue😞!\nCheck your internet connection"),
+                      primaryButton: .default(Text("Got it!")),
+                      secondaryButton: .default(Text("Retry"), action: {
+                    fetchCards()
+                }))
             }
         }.onAppear {
             fetchCards()

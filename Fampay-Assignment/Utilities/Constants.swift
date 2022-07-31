@@ -18,3 +18,9 @@ enum Keys {
 enum UserDefaultKey {
     static let dismissCardList = "dismissedCards"
 }
+
+
+// MARK: - Default URL
+enum defaultURL {
+    static let fampayURL = "https://fampay.in"
+}

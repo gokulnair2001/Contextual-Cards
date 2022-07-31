@@ -50,8 +50,17 @@ extension HC6 {
             .aspectRatio(card.bgImage?.aspectRatio ?? 1, contentMode: .fill)
             .frame(width: 30, height: 30)
             
-            textGenerator(entity: formatText(input: (card.formattedTitle?.text ?? card.title) ?? "ERROR", replaceBy: card.formattedTitle?.entities ?? [Entity].init()))
+            VStack(alignment: .leading, spacing: 3) {
+                customCardText(entity: formatText(input: (card.formattedTitle?.text ?? card.title) ?? "",
+                                                  replaceBy: card.formattedTitle?.entities ?? [Entity].init()))
                 .font(.roboto(weight: .medium, size: 14))
+                
+                
+                customCardText(entity: formatText(input: (card.formattedDescription?.text ?? card.cardDescription) ?? "",
+                                                  replaceBy: card.formattedDescription?.entities ?? [Entity].init()))
+                .font(.roboto(weight: .regular, size: 14))
+            }
+            .padding(.leading, 15)
             
             Spacer()
             
@@ -62,11 +71,10 @@ extension HC6 {
         }.padding(.horizontal, 20)
             .hLeading()
             .onTapGesture {
-                openURL(URL(string: card.url)!)
+                openURL(URL(string: verifiedUrl(card.url))!)
             }
             .frame(width: UIScreen.main.bounds.width - 30, height: 60)
             .background(Color(hexStringToUIColor(hex: card.bgColor ?? "#ffffff")))
             .cornerRadius(15)
-            .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 0)
     }
 }

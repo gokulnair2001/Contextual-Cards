@@ -49,7 +49,7 @@ extension HC9 {
             .cornerRadius(5)
             .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 0)
             .onTapGesture {
-                openURL(URL(string: card.url)!)
+                openURL(URL(string: verifiedUrl(card.url))!)
             }
     }
 }
