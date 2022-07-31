@@ -56,7 +56,7 @@ extension ContentView {
     var mainCardsView: some View {
         ScrollView {
             /// Custom refreshable view
-            PullToRefresh(coordinateSpaceName: "refreshable") {
+            PullToRefresh(spaceName: "refreshable") {
                 fetchCards()
             }
             /// Safety check to present view
