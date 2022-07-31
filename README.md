@@ -10,14 +10,13 @@
 
 ## 📸 SnapShots
 
-| Home | Home | Home |
-| -- | -- | -- | 
-| ![1](https://user-images.githubusercontent.com/56252259/182019769-5492c9a1-f9d7-4430-824c-8c11b2744f62.png) | ![2](https://user-images.githubusercontent.com/56252259/182019789-87002310-a064-48f6-96a3-ee3cd598ad3f.png) | ![3](https://user-images.githubusercontent.com/56252259/182019798-82945e8b-a3e6-46b8-9991-bc710f75eafe.png) |
+| Home | Home |
+| -- | -- |
+| ![1](https://user-images.githubusercontent.com/56252259/182021572-59d38e6a-c165-427f-afd4-da6ab1f008b7.png) | ![2](https://user-images.githubusercontent.com/56252259/182021596-c1ac45f9-bc66-4a17-b621-870f4ce2901d.png) |
 
-| Toast | Action Card | PlaceHolder |
-| -- | -- | -- | 
-| ![4](https://user-images.githubusercontent.com/56252259/182019818-231f1686-47ce-4534-95d9-0c42b890e4cc.png) | ![5](https://user-images.githubusercontent.com/56252259/182019849-675c19b1-644b-4394-a373-27b59fcfa4ea.png) | ![6](https://user-images.githubusercontent.com/56252259/182019865-cc546ddd-fc35-4493-ad8f-7be16d4297b6.png) |
-
+| Toast | Action Card |
+| -- | -- |
+| ![3](https://user-images.githubusercontent.com/56252259/182021618-91dacf6d-b2d5-47d4-b07c-e91453cfc67a.png) | ![4](https://user-images.githubusercontent.com/56252259/182021625-bd93369b-6d59-4691-9417-a03beb3d8a01.png) |
 
 
 ## 🗞 Information
