@@ -31,7 +31,7 @@ These are the few things followed in the project:
 
 ## 🧰 Outsourced Component
 
-* Since scroll view doesnt support inbuit [refreshable](https://developer.apple.com/documentation/swiftui/label/refreshable(action:)) thus we used a [custom scroll view](https://stackoverflow.com/a/65100922/13105622) refreshable
+* Since scroll view doesnt support inbuit [refreshable](https://developer.apple.com/documentation/swiftui/label/refreshable(action:)) thus we have used a [custom scroll view](https://stackoverflow.com/a/65100922/13105622) refreshable
 
 ## ⚖️ License
 The project is available under MIT [License](https://github.com/gokulnair2001/Fampay-Assignment/blob/main/License)
